@@ -8,6 +8,7 @@ import com.junior.sistemacadastrousuariospringboot.services.exceptions.EmailExis
 import com.junior.sistemacadastrousuariospringboot.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,7 +36,11 @@ public class UsuarioService {
     }
 
     public void deleteById(Long id){
-        usuarioRepository.deleteById(id);
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (ResourceNotFoundException | EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
     
 }
