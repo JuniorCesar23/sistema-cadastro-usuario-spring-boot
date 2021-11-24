@@ -1,7 +1,9 @@
 package com.junior.sistemacadastrousuariospringboot.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.junior.sistemacadastrousuariospringboot.dto.UsuarioDTO;
 import com.junior.sistemacadastrousuariospringboot.entities.Usuario;
 import com.junior.sistemacadastrousuariospringboot.services.UsuarioService;
 
@@ -30,15 +32,17 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> findAll(){
+    public ResponseEntity<List<UsuarioDTO>> findAll(){
         List<Usuario> usuarios = usuarioService.findAll();
-        return ResponseEntity.ok().body(usuarios);
+        List<UsuarioDTO> usuariosDTO = usuarios.stream().map(usuario -> new UsuarioDTO(usuario))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok().body(usuariosDTO);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id){
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id){
         Usuario usuario = usuarioService.findById(id);
-        return ResponseEntity.ok().body(usuario);
+        return ResponseEntity.ok().body(new UsuarioDTO(usuario));
     }
 
     @DeleteMapping(value = "/{id}")
