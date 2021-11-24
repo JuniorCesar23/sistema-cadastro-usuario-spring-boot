@@ -1,6 +1,7 @@
 package com.junior.sistemacadastrousuariospringboot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.junior.sistemacadastrousuariospringboot.entities.Usuario;
 import com.junior.sistemacadastrousuariospringboot.repository.UsuarioRepository;
@@ -26,6 +27,10 @@ public class UsuarioService {
     // LISTAR TODOS OS USUÁRIOS CADASTRADOS
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
+    }
+
+    public Optional<Usuario> findById(Long id){
+        return usuarioRepository.findById(id);
     }
     
 }
