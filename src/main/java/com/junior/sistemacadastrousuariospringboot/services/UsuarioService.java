@@ -1,11 +1,11 @@
 package com.junior.sistemacadastrousuariospringboot.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.junior.sistemacadastrousuariospringboot.entities.Usuario;
 import com.junior.sistemacadastrousuariospringboot.repository.UsuarioRepository;
 import com.junior.sistemacadastrousuariospringboot.services.exceptions.EmailExistsException;
+import com.junior.sistemacadastrousuariospringboot.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +29,9 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> findById(Long id){
-        return usuarioRepository.findById(id);
+    public Usuario findById(Long id){
+        return usuarioRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(id));
     }
     
 }
