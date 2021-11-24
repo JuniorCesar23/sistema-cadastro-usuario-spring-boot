@@ -2,6 +2,8 @@ package com.junior.sistemacadastrousuariospringboot.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.junior.sistemacadastrousuariospringboot.entities.Usuario;
 import com.junior.sistemacadastrousuariospringboot.repository.UsuarioRepository;
 import com.junior.sistemacadastrousuariospringboot.services.exceptions.EmailExistsException;
@@ -46,9 +48,13 @@ public class UsuarioService {
 
     // ATUALIZAR USUÁRIO
     public Usuario update(Long id, Usuario novoUsuario){
-        Usuario usuario = usuarioRepository.getOne(id);
-        atualizarDados(usuario, novoUsuario);
-        return usuarioRepository.save(usuario);
+        try {
+            Usuario usuario = usuarioRepository.getOne(id);
+            atualizarDados(usuario, novoUsuario);
+            return usuarioRepository.save(usuario); 
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
     private void atualizarDados(Usuario usuario, Usuario novoUsuario) {
         usuario.setNomeCompleto(novoUsuario.getNomeCompleto());
