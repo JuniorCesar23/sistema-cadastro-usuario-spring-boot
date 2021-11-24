@@ -35,12 +35,25 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    // DELETAR USUÁRIO
     public void deleteById(Long id){
         try {
             usuarioRepository.deleteById(id);
         } catch (ResourceNotFoundException | EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(id);
         }
+    }
+
+    // ATUALIZAR USUÁRIO
+    public Usuario update(Long id, Usuario novoUsuario){
+        Usuario usuario = usuarioRepository.getOne(id);
+        atualizarDados(usuario, novoUsuario);
+        return usuarioRepository.save(usuario);
+    }
+    private void atualizarDados(Usuario usuario, Usuario novoUsuario) {
+        usuario.setNomeCompleto(novoUsuario.getNomeCompleto());
+        usuario.setIdade(novoUsuario.getIdade());
+        usuario.setEmail(novoUsuario.getEmail());
     }
     
 }
