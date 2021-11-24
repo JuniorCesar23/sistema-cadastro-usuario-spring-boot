@@ -29,9 +29,13 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    // MOSTRAR POR ID
     public Usuario findById(Long id){
-        return usuarioRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id));
+        return usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public void deleteById(Long id){
+        usuarioRepository.deleteById(id);
     }
     
 }
