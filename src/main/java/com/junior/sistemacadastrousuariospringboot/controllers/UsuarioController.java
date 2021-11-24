@@ -1,7 +1,6 @@
 package com.junior.sistemacadastrousuariospringboot.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.junior.sistemacadastrousuariospringboot.entities.Usuario;
 import com.junior.sistemacadastrousuariospringboot.services.UsuarioService;
