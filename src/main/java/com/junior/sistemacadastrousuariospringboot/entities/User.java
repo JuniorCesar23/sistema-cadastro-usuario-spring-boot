@@ -2,10 +2,7 @@ package com.junior.sistemacadastrousuariospringboot.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,13 +14,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Usuario implements Serializable {
+@Table(name = "user_registration")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nomeCompleto;
-    private Integer idade;
+    private String username;
+    private Integer year;
     private String email;
     
 }

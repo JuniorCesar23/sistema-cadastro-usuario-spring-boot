@@ -14,19 +14,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionsHandler {
-    
-    // TRATAR ERRO POR E-MAIL JÁ CADASTRADO
+
     @ExceptionHandler(EmailExistsException.class)
-    public ResponseEntity<StandardError> emailExistsException(EmailExistsException e, HttpServletRequest request){
-        String error = "Recurso já existente";
+    public ResponseEntity<StandardError> emailExistsException(EmailExistsException e, HttpServletRequest request) {
+        String error = "Existing resource";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
-    // TRATAR ERRO POR ID NÃO ENCONTRADO
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> resourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> resourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request) {
         String error = "Resource not found";
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
